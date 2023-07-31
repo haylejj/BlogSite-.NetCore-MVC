@@ -1,0 +1,65 @@
+﻿@model EntityLayer.Concrete.Author
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/StoreFront.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="\lib\jquery\dist\jquery.js"></script>
+
+	<section class="main-content-w3layouts-agileits">
+		<div class="container">
+			<h3 class="tittle">Register Now</h3>
+				<div class="inner-sec">
+			<div class="login p-5 bg-light mx-auto mw-100">
+				@using(Html.BeginForm("Index","Register",FormMethod.Post)){ 
+						<div class="form-row">
+								<div class="col-md-6 mb-3">
+										<label for="validationCustom01">First name Last Name</label>
+
+									@Html.TextBoxFor(x=>x.AuthorName,new {@class="form-control"})
+									@Html.ValidationMessageFor(x=>x.AuthorName,"",new {@class="text-danger"})
+								</div>
+								<div class="col-md-6 mb-3">
+										<label for="validationCustom02">Mail</label>
+									@Html.TextBoxFor(x=>x.AuthorMail,new {@class="form-control"})
+							@Html.ValidationMessageFor(x=>x.AuthorMail,"",new {@class="text-danger"})
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+										<label for="exampleInputPassword1 mb-2">Password</label>
+									@Html.TextBoxFor(x=>x.AuthorPassword,new {@class="form-control"})
+							@Html.ValidationMessageFor(x=>x.AuthorPassword,"",new {@class="text-danger"})
+								</div>
+								<div class="form-group col-md-6">
+										<label for="exampleInputPassword2 mb-2">Confirm Password</label>
+										<input type="password" class="form-control" id="password2" placeholder="" >
+									</div>
+								
+							</div>
+							<button type="submit" id="btn2" class="btn btn-primary submit mb-4">Yükle</button>
+								<p>
+									<a href="#" id="btn1" >Tüm şartları okudum, kabul ediyorum.</a>
+								</p>
+						}
+					</div>
+			</div>
+		</div>
+		<br />
+		<script>
+			$('#btn1').click(function () {
+			swal("Site Kabul Şartları","Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-posta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz.Şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının görmeyeceği şekilde veri tabanlarımızda saklanmaktadır");
+			});
+		</script>
+		<script>
+			$('#btn2').click(function (){
+			swal({
+				title:"Good job!",
+				text: "You Register as a Author",
+				icon: "success",
+				button: "Okey",
+			});
+			});
+		</script>
+	</section>
+

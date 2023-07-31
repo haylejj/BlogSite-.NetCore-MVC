@@ -1,14 +1,44 @@
 ﻿<div class="comment-top">
 	<h4>Yorum Yazınız...</h4>
 	<div class="comment-bottom">
-		<form action="#" method="post">
-			<input class="form-control" type="text" name="Name" placeholder="Name" required="">
-			<input class="form-control" type="email" name="Email" placeholder="Email" required="">
-
-			<input class="form-control" type="text" name="Subject" placeholder="Subject" required="">
-
-			<textarea class="form-control" name="Message" placeholder="Message..." required=""></textarea>
+		<form id="form" action="/Comment/PartialAddComment" method="post">
+			<input class="form-control" type="text" name="CommentUserName" placeholder="Adınız Soyadınız" required="">
+			<input class="form-control" type="text" name="CommentTitle" placeholder="Konu" required="">
+			<textarea class="form-control" name="CommentContent" placeholder="Yorumunuz..." required=""></textarea>
 			<button type="submit" class="btn btn-primary submit">Submit</button>
 		</form>
 	</div>
 </div>
+
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); // Formun normal submit işlemini engelle
+
+            var form = $(this);
+            var url = form.attr('action');
+            var method = form.attr('method');
+            var data = form.serialize();
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                success: function (response) {
+                    swal({
+                        title: "İşlem Tamamlandı!",
+                        text: "Başarıyla Yorum Eklediniz!",
+                        icon: "success",
+                        button: "Tamam",
+                    });
+                },
+                error: function (xhr, status, error) {
+                    // Hata durumunda yapılacak işlemler
+                }
+            });
+        });
+    });
+</script>

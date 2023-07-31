@@ -1,0 +1,37 @@
+﻿
+<div class="tech-btm">
+	<h4>Sign up to our newsletter</h4>
+	<p>Teknoloji yazılım ve diğer bloglar... </p>
+	<form id="newsletterForm" action="/NewsLetter/SubscribeMail" method="post">
+		<input type="email" placeholder="Email" required="" name="Mail">
+		<input type="submit" value="Subscribe">
+	</form>
+
+</div>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#newsletterForm").submit(function (event) {
+            event.preventDefault(); // Formun varsayılan davranışını engelle
+
+            var formData = $(this).serialize();
+
+            // AJAX kullanarak formu gönder
+            $.ajax({
+                url: $(this).attr("action"),
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    swal({
+                        title: "İşlem Tamamlandı!",
+                        text: "Başarıyla Abone Oldunuz!",
+                        icon: "success",
+                        button: "Tamam",
+                    });
+                }
+            });
+        });
+    });
+</script>

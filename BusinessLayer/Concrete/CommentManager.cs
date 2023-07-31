@@ -21,7 +21,7 @@ namespace BusinessLayer.Concrete
 
         public void Add(Comment entity)
         {
-            throw new NotImplementedException();
+            _commentDal.Insert(entity);
         }
 
         public void Delete(Comment entity)

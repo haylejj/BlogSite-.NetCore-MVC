@@ -9,6 +9,7 @@ namespace BlogSite.ViewComponents.Comment
         CommentManager commentManager= new CommentManager(new EfCommentRepository());
         public IViewComponentResult Invoke(int id)
         {
+            ViewBag.Id = id;
             return View(commentManager.GetList(x=>x.BlogId==id));
         }
     }

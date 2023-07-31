@@ -17,6 +17,7 @@ namespace EntityLayer.Concrete
         public string? AuthorAbout { get; set; }
         public string? AuthorImage { get; set; }
         public bool AuthorStatus { get; set; }
+        public List<Blog>? Blogs { get; set; }
 
     }
 }
