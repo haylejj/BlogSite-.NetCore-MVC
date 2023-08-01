@@ -1,0 +1,64 @@
+﻿@model List<EntityLayer.Concrete.About>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/StoreFront.cshtml";
+}
+
+<!--
+	Author: W3layouts
+	Author URL: http://w3layouts.com
+	License: Creative Commons Attribution 3.0 Unported
+	License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<body>
+	<section class="main-content-w3layouts-agileits">
+		<div class="container">
+			<h3 class="tittle">About</h3>
+			<div class="row inner-sec">
+				<!--left-->
+				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+					<div class="blog-grid-top">
+
+						<div class="blog_info_left_grid">
+							<a href="single.html">
+								<img src="/web/images/b5.jpg" class="img-fluid" alt="">
+							</a>
+						</div>
+						<h3>
+							Biz Kimiz && Misyonumuz
+						</h3>
+						@foreach (var item in Model)
+						{
+						<p>@item.AboutDetails1</p>
+						}
+						<a href="single.html" class="btn btn-primary read-m">Read More</a>
+					</div>
+
+				</div>
+				<!--//left-->
+				<!--right-->
+				<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+					<div class="right-blog-info text-left">
+						<div class="tech-btm">
+							<img src="/web/images/banner1.jpg" class="img-fluid" alt="">
+						</div>
+						@await Html.PartialAsync("/Views/NewsLetter/SubscribeMail.cshtml")
+						@await Component.InvokeAsync("SocialMediaLink")
+						<div class="tech-btm">
+							<h4>Recent Posts</h4>
+							@await Component.InvokeAsync("AuthorLastBlog")
+						</div>
+					</div>
+
+				</aside>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+
