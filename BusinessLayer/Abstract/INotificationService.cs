@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-	public interface IAuthorService:IGenericService<Author>
-	{
-		List<Author> GetAuthorById(int id);
-	}
+    public interface INotificationService:IGenericService<Notification>
+    {
+    }
 }

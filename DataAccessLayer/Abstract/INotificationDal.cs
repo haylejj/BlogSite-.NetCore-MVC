@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Abstract
+namespace DataAccessLayer.Abstract
 {
-	public interface IAuthorService:IGenericService<Author>
-	{
-		List<Author> GetAuthorById(int id);
-	}
+    public interface INotificationDal:IGenericDal<Notification>
+    {
+    }
 }

@@ -28,6 +28,7 @@ namespace BlogSite.Controllers
 
             return View(blogManager.GetListWithCategoryByAuthor(1));
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult BlogAdd()
         {
@@ -41,6 +42,7 @@ namespace BlogSite.Controllers
             ViewBag.list=list;
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult BlogAdd(Blog p)
         {

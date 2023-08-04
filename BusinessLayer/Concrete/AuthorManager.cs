@@ -29,24 +29,29 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
+        public List<Author> GetAuthorById(int id)
+        {
+          return  _authorDal.GetList(x => x.AuthorId==id);
+        }
+
         public Author GetByID(int id)
         {
-            throw new NotImplementedException();
+           return _authorDal.GetById(id);
         }
 
         public List<Author> GetList()
         {
-            throw new NotImplementedException();
+            return _authorDal.GetList();
         }
 
         public List<Author> GetList(Expression<Func<Author, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _authorDal.GetList(filter);
         }
 
         public void Update(Author entity)
         {
-            throw new NotImplementedException();
+            _authorDal.Update(entity);
         }
     }
 }

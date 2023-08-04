@@ -1,0 +1,49 @@
+﻿@model EntityLayer.Concrete.Author
+@{
+    ViewData["Title"] = "AuthorAdd";
+    Layout = "~/Views/Shared/AuthorLayout.cshtml";
+}
+
+<form class="form-group" method="post" enctype="multipart/form-data">
+    @using (Html.BeginForm("Update", "Author", FormMethod.Post))
+    {
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Yazar Profil Bilgileri Düzenleme</h4>
+                    <br>
+                    @Html.HiddenFor(x=>x.AuthorId,new {@class="form-control"})
+                    <div class="forms-sample">
+                        <div class="form-group">
+                            @Html.Label("İsim")
+                            @Html.TextBoxFor(x=>x.AuthorName,new {@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.AuthorName)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Mail Adresi")
+                            @Html.TextBoxFor(x=>x.AuthorMail,new {@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.AuthorMail)
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Şifre")
+                            @Html.PasswordFor(x=>x.AuthorPassword,new {@class="form-control"})
+                            @Html.ValidationMessageFor(x=>x.AuthorPassword)
+                        </div>
+                        <div class="form-group">
+                            <label>Yazar Görsel</label>
+                            <input type="file" name="AuthorImage">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleTextarea1">Yazar Hakkında</label>
+                            @Html.TextAreaFor(x=>x.AuthorAbout,10,3,new {@class="form-control"})
+                        </div>
+
+                        <button class="btn btn-success">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+    }
+
+</form>
+
