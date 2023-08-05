@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSite.Controllers
 {
-    [AllowAnonymous]
+
     public class NotificationController : Controller
     {
         NotificationManager notificationManager = new NotificationManager(new EfNotificationRepository());

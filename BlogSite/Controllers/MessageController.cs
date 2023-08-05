@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSite.Controllers
 {
-    [AllowAnonymous]
+   
     public class MessageController : Controller
     {
         Message2Manager message2Manager = new Message2Manager(new EfMessage2Repository());

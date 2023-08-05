@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogSite.Controllers
 {
-    [AllowAnonymous]
+    
     public class BlogController : Controller
     {
         BlogManager blogManager= new BlogManager(new EfBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+        AuthorManager authorManager = new AuthorManager(new EfAuthorRepository());
         public IActionResult Index()
         {
             return View(blogManager.GetListWithCategory());
@@ -25,10 +26,12 @@ namespace BlogSite.Controllers
         }
         public IActionResult BlogListByAuthor()
         {
+            var usermail = User.Identity.Name;
 
-            return View(blogManager.GetListWithCategoryByAuthor(1));
+            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
+            return View(blogManager.GetListWithCategoryByAuthor(author));
         }
-        [AllowAnonymous]
+   
         [HttpGet]
         public IActionResult BlogAdd()
         {
@@ -40,18 +43,22 @@ namespace BlogSite.Controllers
                                              Text=x.CategoryName
                                          }).ToList();
             ViewBag.list=list;
+
             return View();
         }
-        [AllowAnonymous]
+ 
         [HttpPost]
         public IActionResult BlogAdd(Blog p)
         {
+            var usermail = User.Identity.Name;
+
+            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
             BlogValidator validationRules = new BlogValidator();
             ValidationResult result = validationRules.Validate(p);
             if (result.IsValid)
             {
                 p.BlogStatus=true;
-                p.AuthorId=1;
+                p.AuthorId=author;
                 p.BlogCreateDate=DateTime.Parse(DateTime.Now.ToShortDateString());
                 blogManager.Add(p);
                 return RedirectToAction("BlogListByAuthor", "Blog");
@@ -88,7 +95,10 @@ namespace BlogSite.Controllers
         [HttpPost]
         public IActionResult Update(Blog p)
         {
-            p.AuthorId=1;
+            var usermail = User.Identity.Name;
+
+            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
+            p.AuthorId=author;
             p.BlogCreateDate=DateTime.Parse(DateTime.Now.ToShortDateString());
             blogManager.Update(p);
             return RedirectToAction("BlogListByAuthor");

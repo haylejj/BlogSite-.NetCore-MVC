@@ -9,7 +9,9 @@ namespace BlogSite.ViewComponents.Author
         AuthorManager authorManager = new AuthorManager(new EfAuthorRepository());
         public IViewComponentResult Invoke()
         {
-            return View(authorManager.GetAuthorById(1));
+            var usermail = User.Identity.Name;
+            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
+            return View(authorManager.GetAuthorById(author));
         }
     }
 }

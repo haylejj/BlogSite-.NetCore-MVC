@@ -10,12 +10,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSite.Controllers
 {
-	[AllowAnonymous]
+	
 	public class AuthorController : Controller
 	{
 		AuthorManager authorManager= new AuthorManager(new EfAuthorRepository());
 		public IActionResult Index()
 		{
+			var usermail = User.Identity.Name;
+			ViewBag.v1=usermail;
+			var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorName).FirstOrDefault();
+			ViewBag.v2=author;
 			return View();
 		}
 		public PartialViewResult AuthorNavbarPartial()
@@ -26,13 +30,17 @@ namespace BlogSite.Controllers
         {
             return PartialView();
         }
-        [AllowAnonymous]
+  
         [HttpGet]
 		public IActionResult UpdateAuthor()
 		{
-			return View(authorManager.GetByID(1));
+            var usermail = User.Identity.Name;
+ 
+            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
+     
+            return View(authorManager.GetByID(author));
 		}
-        [AllowAnonymous]
+ 
         [HttpPost]
         public IActionResult Update(Author p)
         {
@@ -52,13 +60,13 @@ namespace BlogSite.Controllers
 			}
 			return View();
         }
-        [AllowAnonymous]
+
         [HttpGet]
         public IActionResult AuthorAdd()
 		{
             return View();
 		}
-        [AllowAnonymous]
+
         [HttpPost]
         public IActionResult AuthorAdd(AddProfileImage p2)
         {
