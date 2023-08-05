@@ -18,6 +18,8 @@ namespace EntityLayer.Concrete
         public string? AuthorImage { get; set; }
         public bool AuthorStatus { get; set; }
         public List<Blog>? Blogs { get; set; }
+        public virtual ICollection<Message2> ?MessageSender { get; set; }
+        public virtual ICollection<Message2> ?MessageReciver { get; set; }
 
     }
 }
