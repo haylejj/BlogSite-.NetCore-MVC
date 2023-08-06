@@ -26,7 +26,8 @@ namespace BusinessLayer.Concrete
 
         public void Delete(Category entity)
         {
-            _categoryDal.Delete(entity);
+            entity.CategoryStatus=false;
+            _categoryDal.Update(entity);
         }
 
         public Category GetByID(int id)

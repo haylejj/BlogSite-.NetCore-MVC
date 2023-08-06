@@ -5,13 +5,16 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/AdminAreaLayout.cshtml";
 }
-
 <h2>Kategoriler</h2>
 <br />
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <table class="table table-bordered">
     <tr>
         <th>#</th>
         <th>Kategori Adı</th>
+        <th>Durum</th>
         <th>Pasif Yap</th>
         <th>Aktif Yap</th>
         <th>Düzenle</th>
@@ -21,7 +24,8 @@
         <tr>
             <td>@item.CategoryId</td>
             <td>@item.CategoryName</td>
-            <td><a href="#" class="btn btn-warning">Pasif Yap</a></td>
+            <td>@item.CategoryStatus</td>
+            <td><a href="/Admin/Category/DeleteCategory/@item.CategoryId" id="DeleteBtn" onclick="return confirm('Pasif yapmak istediğinizden emin misiniz ?');" class="btn btn-warning">Pasif Yap</a></td>
             <td><a href="#" class="btn btn-success">Aktif Yap</a></td>
             <td><a href="#" class="btn btn-info">Düzenle</a></td>
         </tr>
@@ -32,4 +36,3 @@
 <br />
 <br />
 @Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new {page}))
-

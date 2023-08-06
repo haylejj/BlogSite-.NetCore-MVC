@@ -3,11 +3,13 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace BlogSite.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     [Area("Admin")]
     public class CategoryController : Controller
     {
@@ -41,6 +43,12 @@ namespace BlogSite.Areas.Admin.Controllers
                 }
             }
             return View();
+        }
+        public IActionResult DeleteCategory(int id)
+        {
+            var value = categoryManager.GetByID(id);
+            categoryManager.Delete(value);
+            return RedirectToAction("Index");
         }
 
     }
