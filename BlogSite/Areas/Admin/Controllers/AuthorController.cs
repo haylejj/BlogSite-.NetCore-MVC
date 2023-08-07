@@ -16,14 +16,37 @@ namespace BlogSite.Areas.Admin.Controllers
 
         public IActionResult AuthorList()
         {
-            var jsonAuthors=JsonConvert.SerializeObject(authors);
+            var jsonAuthors = JsonConvert.SerializeObject(authors);
             return Json(jsonAuthors);
         }
         public IActionResult GetAuthorById(int authorId)
         {
             var findAuthor = authors.FirstOrDefault(x => x.Id == authorId);
-            var jsonAuthors= JsonConvert.SerializeObject(findAuthor);
+            var jsonAuthors = JsonConvert.SerializeObject(findAuthor);
             return Json(jsonAuthors);
+        }
+        [HttpPost]
+        public IActionResult AddAuthor(AuthorClass author)
+        {
+            authors.Add(author);
+            var jsonAuthors = JsonConvert.SerializeObject(author);
+            return Json(jsonAuthors);
+
+        }
+        public IActionResult DeleteAuthor(int id)
+        {
+            var author = authors.FirstOrDefault(x => x.Id == id);
+            authors.Remove(author);
+            return Json(author);
+        }
+        public IActionResult UpdateAuthor(AuthorClass p)
+        {
+            var author = authors.FirstOrDefault(x => x.Id == p.Id);
+            author.Name=p.Name;
+            var jsonauthor = JsonConvert.SerializeObject(p);
+            return Json(jsonauthor);
+
+
         }
         public static List<AuthorClass> authors = new List<AuthorClass>
         {

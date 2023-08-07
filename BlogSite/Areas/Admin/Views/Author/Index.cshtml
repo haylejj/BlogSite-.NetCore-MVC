@@ -7,7 +7,10 @@
 <h1>Yazar Ajax İşlemleri</h1>
 <br />
 <button type="button" id="btngetlist" class="btn btn-outline-primary">Yazar Listesi</button>
-<button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Listesi</button>
+<button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Listesi Id ye göre</button>
+<button type="button" id="btnaddauthor" class="btn btn-outline-info">Yazar Ekle</button>
+<button type="button" id="btndeleteauthor" class="btn btn-outline-danger">Yazar Sil</button>
+<button type="button" id="btnupdateauthor" class="btn btn-outline-warning">Yazar Güncelle</button>
 <br /><br />
 <br /><br />
 <div id="authorlist">
@@ -18,11 +21,32 @@
     buraya 1 yazar gelecek
 </div>
 <br />
+<br />
 <div>
     <input type="text" id="authorId"  placeholder="Yazar Id Değerini girin" class="form-control"/>
 </div>
+<br />
+<br />
+<div>
+    <input type="text" class="form-control"  id="txtauthorid" placeholder="Yazar Id"/>
+    <br />
+    <input type="text" class="form-control" id="txtauthorname" placeholder="Yazar Adı" />
+</div>
+<br />
+<br />
+<div>
+    <input  type="text" class="form-control" id="txtauthorid2" placeholder="Silinecek Yazar Id"/>
+</div>
+<br />
+<div>
+    <input type="text" class="form-control" id="txtupdate" placeholder="Güncellenecek Id" />
+    <br />
+    <input type="text" class="form-control" id="txtupdate2" placeholder="Güncellenecek İsim" />
+</div>
+
 @section scripts{
     <script>
+        //listeleme
         $('#btngetlist').click(function () {
             $.ajax({
                 contentType:"application/json",
@@ -41,6 +65,7 @@
                 }
             });
         });
+        // id ye göre listeleme
         $("#btngetbyid").click(x => {
             let id = $("#authorId").val();
             $.ajax({
@@ -58,5 +83,49 @@
                 }
             });
         });
+        //ekleme
+        $("#btnaddauthor").click(function () {
+            let author={
+                Id: $("#txtauthorid").val(),
+                Name: $("#txtauthorname").val()
+            };
+            $.ajax({
+                //dataType: "json",
+                type:"POST",
+                url:"/Admin/Author/AddAuthor",
+                data:author,
+                success:function(func){
+                    let result=jQuery.parseJSON(func);
+                    alert("Yazar ekleme işlemi başarılı bir şekilde gerçekleşti")
+                }
+            })
+        })
+        //silme
+        $("#btndeleteauthor").click(x => {
+            let id = $("#txtauthorid2").val();
+            $.ajax({
+                url: "/Admin/Author/DeleteAuthor/"+id,
+                type:"POST",
+                dataType:"json",
+                success:function(func){
+                    alert("Yazar Silme işlemi başarılı bir şekilde gerçekleşti")
+                }
+            })
+        })
+        //update
+        $("#btnupdateauthor").click(function() {
+            let author={
+                Id: $("#txtupdate").val(),
+                Name: $("#txtupdate2").val()
+            };
+            $.ajax({
+                type:"POST",
+                url: "/Admin/Author/UpdateAuthor/",
+                data:author,
+                success:function(func){
+                    alert("Güncelleme yapıldı");
+                }
+            })
+        })
     </script>
 }
