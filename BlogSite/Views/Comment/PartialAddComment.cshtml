@@ -15,12 +15,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('form').submit(function (event) {
+        $("#form").submit(function (event) {
             event.preventDefault(); // Formun normal submit işlemini engelle
 
             var form = $(this);
-            var url = form.attr('action');
-            var method = form.attr('method');
+            var url = form.attr("actin");
+            var method = form.attr("method");
             var data = form.serialize();
 
             $.ajax({
