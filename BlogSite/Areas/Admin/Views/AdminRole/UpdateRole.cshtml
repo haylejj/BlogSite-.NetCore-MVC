@@ -1,0 +1,19 @@
+﻿@model BlogSite.Models.RoleUpdateViewModel
+@{
+    ViewData["Title"] = "UpdateRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Update Role Page</h1>
+
+
+@using (@Html.BeginForm("Update", "AdminRole", FormMethod.Post))
+{
+    @Html.Label("Id")
+    @Html.TextBoxFor(x=>x.Id,new {@class="form-control"})
+    <br />
+    @Html.Label("Rol Başlığı")
+    @Html.TextBoxFor(x=>x.name,new {@class="form-control"})
+
+    <button class="btn btn-success">Save</button>
+}

@@ -1,0 +1,32 @@
+﻿@model List<EntityLayer.Concrete.AppRole>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Roles Table</h2>
+<br />
+<table class=" table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Delete</th>
+        <th>Edit</th>
+        <th></th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.Id</th>
+                <td>@item.Name</td>
+                <td><a href="/Admin/AdminRole/DeleteRole/@item.Id" class="btn btn-outline-warning">Delete</a></td>
+                <td><a href="/Admin/AdminRole/UpdateRole/@item.Id" class="btn btn-outline-info">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Admin/AdminRole/AddRole" class="btn btn-outline-success">Add New Role</a>
+<a href="/Admin/AdminRole/UserRoleList" class="btn btn-outline-primary">User Role List</a>
+

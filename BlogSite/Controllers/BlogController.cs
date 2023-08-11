@@ -1,9 +1,11 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -12,9 +14,17 @@ namespace BlogSite.Controllers
     
     public class BlogController : Controller
     {
+        Context c = new Context();
+        private readonly UserManager<AppUser> _userManager;
         BlogManager blogManager= new BlogManager(new EfBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         AuthorManager authorManager = new AuthorManager(new EfAuthorRepository());
+
+        public BlogController(UserManager<AppUser> userManager)
+        {
+            _userManager=userManager;
+        }
+
         public IActionResult Index()
         {
             return View(blogManager.GetListWithCategory());
@@ -24,12 +34,12 @@ namespace BlogSite.Controllers
             ViewBag.Id = id;
             return View(blogManager.GetList(x => x.BlogId==id));
         }
-        public IActionResult BlogListByAuthor()
+        public async Task< IActionResult> BlogListByAuthor()
         {
-            var usermail = User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var id=c.Authors.Where(x=>x.AuthorId==user.Id).Select(x=>x.AuthorId).FirstOrDefault();
 
-            var author = authorManager.GetList().Where(x => x.AuthorMail==usermail).Select(y => y.AuthorId).FirstOrDefault();
-            return View(blogManager.GetListWithCategoryByAuthor(author));
+            return View(blogManager.GetListWithCategoryByAuthor(id));
         }
    
         [HttpGet]

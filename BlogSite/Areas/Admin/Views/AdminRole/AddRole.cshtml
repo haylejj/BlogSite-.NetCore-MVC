@@ -1,0 +1,17 @@
+﻿@using BlogSite.Models
+@model RoleViewModel
+@{
+    ViewData["Title"] = "AddRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Add Role Page</h1>
+@using (@Html.BeginForm("AddRole", "AdminRole", FormMethod.Post))
+{
+    
+    @Html.Label("Rol Başlığı")
+    @Html.TextBoxFor(x=>x.name,new {@class="form-control"})
+
+    <button class="btn btn-success">Add Role</button>
+}
+

@@ -59,6 +59,7 @@ namespace BlogSite.Controllers
 			var values = await _userManager.FindByNameAsync(User.Identity.Name);
 			values.Email=model.mail;
 			values.NameSurname=model.namesurname;
+			values.PasswordHash= _userManager.PasswordHasher.HashPassword(values, model.password);
             values.ImageUrl=model.imageurl;
 			var result=await _userManager.UpdateAsync(values);
 			return RedirectToAction("Index", "Dashboard");

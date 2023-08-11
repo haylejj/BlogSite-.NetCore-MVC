@@ -21,6 +21,11 @@
                         <input type="text" asp-for="@Model.username" class="form-control" />
                     </div>
                     <div class="form-group">
+                        @Html.Label("Şifre")
+                        <input type="text" asp-for="@Model.password" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
                         @Html.Label("Mail Adresi")
                         <input type="text" asp-for="@Model.mail" class="form-control" />
                        
@@ -28,12 +33,7 @@
                     <div class="form-group">
                         @Html.Label("Resim Yolu")
                         <input type="text" asp-for="@Model.imageurl" class="form-control" />
-
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Şifre")
-                        @*@Html.PasswordFor(x=>x.PasswordHash,new {@class="form-control"})*@
-                    </div>
+                   
                     @*<div class="form-group">
                         <label>Yazar Görsel</label>
                         <input type="file" name="img[]" class="file-upload-default">
